@@ -12,6 +12,8 @@
 
 <body>
   <!-- Navbar -->
+   <audio id="bg-audio" src="./assets/audio.mp3" style="display: none;"></audio>
+
   <nav class="navbar">
     <div class="logo">VEERA.DEV</div>
     <input type="checkbox" id="menu-toggle" hidden>
@@ -218,6 +220,21 @@
     ScrollReveal().reveal('.navbar', { origin: 'top', distance: '20px', duration: 800, delay: 200 });
     ScrollReveal().reveal('.about-img', { origin: 'left', distance: '50px', duration: 1000, delay: 200 });
     ScrollReveal().reveal('.about-content', { origin: 'right', distance: '50px', duration: 1000, delay: 300 });
+  // Wait for user interaction (click anywhere)
+  window.addEventListener('click', function () {
+    // Create the audio element
+    const audio = document.createElement('audio');
+    audio.src = './assets/audio.mp3';
+    audio.style.display = 'none';
+    audio.autoplay = true;
+
+    // Append to body
+    document.body.appendChild(audio);
+
+    // Play (for browsers that need explicit play call)
+    audio.play().catch(e => console.log('Autoplay blocked:', e));
+  }, { once: true }); // Run only on the first click
+
   </script>
 </body>
 
