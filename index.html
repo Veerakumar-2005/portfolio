@@ -14,6 +14,7 @@
   <!-- Navbar -->
    <audio id="bg-audio" src="./assets/audio.mp3" style="display: none;"></audio>
 
+
   <nav class="navbar">
     <div class="logo">VEERA.DEV</div>
     <input type="checkbox" id="menu-toggle" hidden>
@@ -214,28 +215,26 @@
   </footer>
 
   <script src="https://unpkg.com/scrollreveal"></script>
-  <script>
-    ScrollReveal().reveal('.hero-left', { origin: 'left', distance: '50px', duration: 1000, delay: 300 });
-    ScrollReveal().reveal('.hero-right', { origin: 'right', distance: '50px', duration: 1000, delay: 500 });
-    ScrollReveal().reveal('.navbar', { origin: 'top', distance: '20px', duration: 800, delay: 200 });
-    ScrollReveal().reveal('.about-img', { origin: 'left', distance: '50px', duration: 1000, delay: 200 });
-    ScrollReveal().reveal('.about-content', { origin: 'right', distance: '50px', duration: 1000, delay: 300 });
-  // Wait for user interaction (click anywhere)
+<script>
+  ScrollReveal().reveal('.hero-left', { origin: 'left', distance: '50px', duration: 1000, delay: 300 });
+  ScrollReveal().reveal('.hero-right', { origin: 'right', distance: '50px', duration: 1000, delay: 500 });
+  ScrollReveal().reveal('.navbar', { origin: 'top', distance: '20px', duration: 800, delay: 200 });
+  ScrollReveal().reveal('.about-img', { origin: 'left', distance: '50px', duration: 1000, delay: 200 });
+  ScrollReveal().reveal('.about-content', { origin: 'right', distance: '50px', duration: 1000, delay: 300 });
+
+  // ✅ Autoplay audio after first user interaction
   window.addEventListener('click', function () {
-    // Create the audio element
-    const audio = document.createElement('audio');
-    audio.src = './assets/audio.mp3';
-    audio.style.display = 'none';
-    audio.autoplay = true;
+    const audio = document.getElementById('bg-audio');
+    if (audio && audio.paused) {
+      audio.play().then(() => {
+        console.log('Audio started!');
+      }).catch((e) => {
+        console.log('Autoplay blocked:', e);
+      });
+    }
+  }, { once: true });
+</script>
 
-    // Append to body
-    document.body.appendChild(audio);
-
-    // Play (for browsers that need explicit play call)
-    audio.play().catch(e => console.log('Autoplay blocked:', e));
-  }, { once: true }); // Run only on the first click
-
-  </script>
 </body>
 
 </html>
