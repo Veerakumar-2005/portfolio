@@ -11,11 +11,14 @@
 </head>
 
 <body>
+
+  <audio id="bg-audio" autoplay muted loop preload="auto">
+  <source src="./assets/audio.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
   <!-- Navbar -->
-   <audio id="bg-audio" src="./assets/audio.mp3" style="display: none;"></audio>
-   <audio id="bg-audio" src="./assets/audio.mp3" style="display: none;"></audio>
-
-
+   
   <nav class="navbar">
     <div class="logo">VEERA.DEV</div>
     <input type="checkbox" id="menu-toggle" hidden>
@@ -222,33 +225,21 @@
     ScrollReveal().reveal('.navbar', { origin: 'top', distance: '20px', duration: 800, delay: 200 });
     ScrollReveal().reveal('.about-img', { origin: 'left', distance: '50px', duration: 1000, delay: 200 });
     ScrollReveal().reveal('.about-content', { origin: 'right', distance: '50px', duration: 1000, delay: 300 });
-  // Wait for user interaction (click anywhere)
-  window.addEventListener('click', function () {
-    // Create the audio element
-    const audio = document.createElement('audio');
-    audio.src = './assets/audio.mp3';
-    audio.style.display = 'none';
-    audio.autoplay = true;
 
-    // Append to body
-    document.body.appendChild(audio);
+    
+  const audio = document.getElementById('bg-audio');
 
-    // Play (for browsers that need explicit play call)
-    audio.play().catch(e => console.log('Autoplay blocked:', e));
-  }, { once: true }); // Run only on the first click
+  const unmuteAudio = () => {
+    audio.muted = false;
+    audio.play();
+    window.removeEventListener('click', unmuteAudio);
+    window.removeEventListener('keydown', unmuteAudio);
+    window.removeEventListener('scroll', unmuteAudio);
+  };
 
-  
-  // Autoplay audio after first user interaction (click anywhere)
-  window.addEventListener('click', function () {
-    const audio = document.getElementById('bg-audio');
-    if (audio && audio.paused) {
-      audio.play().then(() => {
-        console.log("🔊 Audio started!");
-      }).catch((err) => {
-        console.log("❌ Autoplay blocked:", err);
-      });
-    }
-  }, { once: true });
+  window.addEventListener('click', unmuteAudio);
+  window.addEventListener('keydown', unmuteAudio);
+  window.addEventListener('scroll', unmuteAudio);
 
 
   </script>
